@@ -14,6 +14,7 @@ function Card() {
 
   // Function to close the popup
   const closePopup = () => {
+    console.log("i love");
     setSelectedItem(null);
   };
 
@@ -38,7 +39,7 @@ function Card() {
 
   return (
     <div>
-      <div className="grid grid-cols-4 lg:grid-cols-3 w-full">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 w-full">
         {currentCards.map((output) => (
           <div
             key={output.id}
@@ -60,12 +61,17 @@ function Card() {
           </div>
         ))}
       </div>
-      <div className="pagination">
-        <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+      <div className="pagination mx-auto max-w-screen-sm justify-center flex items-center font-barslow gap-5 pb-3 text-white">
+        <button
+          onClick={handlePreviousPage}
+          disabled={currentPage === 1}
+          className="bg-red-400 px-3 rounded-2xl hover:bg-red-500"
+        >
           Previous
         </button>
-        <span>Page {currentPage}</span>
+        <span className="border px-4  text-black">{currentPage}</span>
         <button
+          className="bg-red-400 px-3 rounded-2xl hover:bg-red-500"
           onClick={handleNextPage}
           disabled={
             currentPage === Math.ceil(rocketDetails.length / cardsPerPage)
@@ -82,7 +88,7 @@ function Card() {
 
 function DisplayCard({ data }) {
   return (
-    <div className="w-full sm:w-1/2 md:w-1/3 lg:w-3/4 p-4 mx-auto mt-4">
+    <div className="w-full sm:w-1/2  md:w-3/4 lg:w-3/4 p-4 mx-auto mt-4">
       <div className="bg-white rounded-lg shadow-md overflow-hidden">
         <div className="p-4">
           <p>Capsule</p>
