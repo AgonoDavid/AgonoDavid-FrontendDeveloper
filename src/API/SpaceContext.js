@@ -6,7 +6,7 @@ export const API_URL = "https://api.spacexdata.com/v3/capsules";
 
 const SpaceContext = createContext([]);
 
-export function SpaceProvider({ children }) {
+export const SpaceProvider = ({ children }) => {
   const [rocketDetails, setRocketDetails] = useState([]);
 
   const fetchRocketDetails = async () => {
@@ -23,8 +23,10 @@ export function SpaceProvider({ children }) {
   }, []);
 
   return (
-    <SpaceContext.Provider value={rocketDetails}>
+    <SpaceContext.Provider value={{ rocketDetails }}>
       {children}
     </SpaceContext.Provider>
   );
-}
+};
+
+export default SpaceContext;
