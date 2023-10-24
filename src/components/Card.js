@@ -1,12 +1,22 @@
-import { useContext, useState, useMemo } from "react";
-import SpaceContext from "../API/SpaceContext";
-import Select from "./Select";
+import { useState } from "react";
+import ReactPaginate from "react-paginate";
 
 function Card({ filteredData }) {
-  const { rocketDetails } = useContext(SpaceContext);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const cardsPerPage = 10;
+  const [currentPage, setCurrentPage] = useState(0); // Initially set to the first page
+  const itemsPerPage = 10;
+
+  const handlePageChange = ({ selected }) => {
+    setCurrentPage(selected);
+  };
+
+  const getPaginatedItems = () => {
+    const startIndex = currentPage * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return filteredData.slice(startIndex, endIndex);
+  };
+
+  const currentItems = getPaginatedItems();
 
   // Function to handle card click and set the selected item
   const handleCardClick = (item) => {
@@ -19,29 +29,10 @@ function Card({ filteredData }) {
     setSelectedItem(null);
   };
 
-  // Calculate the index range for the current page
-  const indexOfLastCard = currentPage * cardsPerPage;
-  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-  const currentCards = rocketDetails.slice(indexOfFirstCard, indexOfLastCard);
-
-  // Function to handle the Next page
-  const handleNextPage = () => {
-    if (currentPage < Math.ceil(rocketDetails.length / cardsPerPage)) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  // Function to handle the Previous page
-  const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
   return (
     <div>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 w-full">
-        {filteredData.map((output) => (
+        {currentItems.map((output) => (
           <div
             key={output.id}
             className="relative"
@@ -62,25 +53,27 @@ function Card({ filteredData }) {
           </div>
         ))}
       </div>
-      <div className="pagination mx-auto max-w-screen-sm justify-center flex items-center font-barslow gap-5 pb-3 text-white">
-        <button
-          onClick={handlePreviousPage}
-          disabled={currentPage === 1}
-          className="bg-red-400 px-3 rounded-2xl hover:bg-red-500"
-        >
-          Previous
-        </button>
-        <span className="border px-4  text-black">{currentPage}</span>
-        <button
-          className="bg-red-400 px-3 rounded-2xl hover:bg-red-500"
-          onClick={handleNextPage}
-          disabled={
-            currentPage === Math.ceil(rocketDetails.length / cardsPerPage)
-          }
-        >
-          Next
-        </button>
-      </div>
+      <ReactPaginate
+        previousLabel={
+          <span className=" p-1 text-red-400 hover:text-red-800 font-barslow text-[17px] font-semibold">
+            Previous
+          </span>
+        }
+        nextLabel={
+          <span className=" p-1 text-red-400 hover:text-red-800 font-barslow text-[17px] font-semibold">
+            Next
+          </span>
+        }
+        breakLabel={"..."}
+        pageCount={Math.ceil(filteredData.length / itemsPerPage)}
+        marginPagesDisplayed={1}
+        pageRangeDisplayed={5}
+        onPageChange={handlePageChange}
+        containerClassName={"pagination"}
+        subContainerClassName={"pages pagination"}
+        activeClassName={"active"}
+        className=" flex justify-center gap-4 pb-7"
+      />
     </div>
   );
 }
