@@ -1,7 +1,8 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useMemo } from "react";
 import SpaceContext from "../API/SpaceContext";
+import Select from "./Select";
 
-function Card() {
+function Card({ filteredData }) {
   const { rocketDetails } = useContext(SpaceContext);
   const [selectedItem, setSelectedItem] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,7 +41,7 @@ function Card() {
   return (
     <div>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 w-full">
-        {currentCards.map((output) => (
+        {filteredData.map((output) => (
           <div
             key={output.id}
             className="relative"
