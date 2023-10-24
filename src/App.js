@@ -2,15 +2,18 @@ import Banner from "./components/Banner";
 import Search from "./components/Search";
 import Card from "./components/Card";
 import "./App.css";
+import { SpaceProvider } from "./API/SpaceContext";
 
 function App() {
   return (
     <div className="h-screen ">
-      <div className="mx-auto max-w-screen-xl">
-        <Banner />
-        <Search />
-        <Card />
-      </div>
+      <SpaceProvider>
+        <div className="mx-auto max-w-screen-xl">
+          <Banner />
+          <Search />
+          <Card />
+        </div>
+      </SpaceProvider>
     </div>
   );
 }

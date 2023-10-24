@@ -4,7 +4,6 @@ import spinaci from "../images/spinaci.jpg";
 import funghi from "../images/funghi.jpg";
 import salamino from "../images/salamino.jpg";
 import prosciutto from "../images/prosciutto.jpg";
-
 import Pizza from "./Pizza";
 
 const pizzaData = [
