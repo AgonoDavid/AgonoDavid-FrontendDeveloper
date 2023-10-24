@@ -1,12 +1,4 @@
-import { useState } from "react";
-
-export function Search({ onSearch }) {
-  const [selectedOption, setSelectedOption] = useState("");
-
-  const handleSearch = () => {
-    onSearch(selectedOption);
-  };
-
+const Search = ({ options, handleOptionChange, menuSelected, data }) => {
   return (
     <div className="bg-gray-100 py-8">
       <div className="container mx-auto">
@@ -18,26 +10,46 @@ export function Search({ onSearch }) {
             <div className="flex">
               <select
                 className="w-1/2 p-2 border border-gray-300 rounded-l-lg "
-                value={selectedOption}
-                onChange={(e) => setSelectedOption(e.target.value)}
+                value={menuSelected}
+                onChange={handleOptionChange}
               >
-                <option value="select">Select</option>
-                <option value="status">Status</option>
-                <option value="original_launch">Original Launch</option>
-                <option value="type">Type</option>
+                <option value="">Filter by Status</option>
+                {options.map((option, index) => (
+                  <option key={index} value={option}>
+                    {option}
+                  </option>
+                ))}
               </select>
-              <button
-                className="w-1/2 p-2 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600"
-                onClick={handleSearch}
+              {/* <select
+                className="w-1/2 p-2 border border-gray-300 rounded-l-lg "
+                value={menuSelected}
+                onChange={handleOptionChange}
               >
-                Search
-              </button>
+                <option value="">Filter by original_launch</option>
+                {options.map((option, index) => (
+                  <option key={index} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+              <select
+                className="w-1/2 p-2 border border-gray-300 rounded-l-lg "
+                value={menuSelected}
+                onChange={handleOptionChange}
+              >
+                <option value="">Filter by Type</option>
+                {options.map((option, index) => (
+                  <option key={index} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select> */}
             </div>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Search;

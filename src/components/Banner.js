@@ -12,7 +12,9 @@ function Banner() {
             </h1>
             <p className=" font-Belleflair text-2xl">One Rocket at a Time.</p>
           </div>
-          <button className="border p-3 mt-6">Explore Catalogue</button>
+          <button className=" p-3 mt-6 transition-transform transform hover:scale-105 bg-red-500 px-3 rounded text-teal-50 font-Belleflair text-xl font-medium">
+            Explore Catalogue
+          </button>
         </div>
       </section>
     </header>
