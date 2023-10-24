@@ -1,6 +1,6 @@
 import Banner from "./components/Banner";
-import Search from "./components/Search";
 import Card from "./components/Card";
+import Search from "./components/Search";
 import "./App.css";
 import { SpaceProvider } from "./API/SpaceContext";
 
