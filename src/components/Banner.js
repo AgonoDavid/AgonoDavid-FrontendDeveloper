@@ -14,9 +14,9 @@ function Banner({ onExploreClick }) {
           </div>
           <button
             onClick={onExploreClick}
-            className=" p-3 mt-6 transition-transform transform hover:scale-105 bg-red-500 px-3 rounded text-teal-50 font-Belleflair text-xl font-medium"
+            className=" p-3 mt-6 font-semibold transition-transform transform hover:scale-105 bg-red-500 px-3 rounded text-teal-50 font-barslow text-xl "
           >
-            Explore Catalogue
+            Click to Explore Catalogue
           </button>
         </div>
       </section>
