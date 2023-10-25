@@ -3,11 +3,6 @@
   padding: 0;
 }
 
-.App {
-  max-width: 1100px;
-  margin: auto;
-}
-
 .bg {
   background-image: url(/src/images/spacex-tKs_2sBoqAg-unsplash.jpg);
   background-position: center;
