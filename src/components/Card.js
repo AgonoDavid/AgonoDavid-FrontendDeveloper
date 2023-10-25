@@ -53,7 +53,7 @@ class Card extends Component {
               {selectedItem === output && (
                 <div className="popup absolute top-0 left-0 mt-4 ml-4 font-barslow z-40">
                   <div className="max-w-screen-sm md:max-w-screen-md">
-                    <div className="popup-content rounded-lg shadow-md bg-white p-4">
+                    <div className="popup-content rounded-lg shadow-lg bg-white p-4">
                       <img
                         className="close-button absolute top-2 right-2 text-gray-500 hover:text-gray-700"
                         onClick={this.closePopup}
