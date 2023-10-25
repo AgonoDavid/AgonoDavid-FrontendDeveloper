@@ -45,10 +45,11 @@ class Card extends Component {
       <div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 w-full bg-gray-100">
           {currentItems.map((output) => (
-            <div key={output.id} className="relative">
+            <div className="relative" key={output.id}>
               <DisplayCard
                 data={output}
                 handleCardClick={() => this.handleCardClick(output)}
+                key={output.id}
               />
               {selectedItem === output && (
                 <div className="popup absolute top-0 left-0 mt-4 ml-4 font-barslow z-40">
