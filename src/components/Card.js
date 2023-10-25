@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import ReactPaginate from "react-paginate";
+import close from "../images/icons8-macos-close-30.png";
 
-// Create a Card class that extends Component
+// Card component class that extends Component
 class Card extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedItem: null,
-      currentPage: 0,
-      itemsPerPage: 10,
+      selectedItem: null, // Track the selected item
+      currentPage: 0, // Track the current page
+      itemsPerPage: 10, // Number of items displayed per page
     };
   }
 
@@ -42,28 +43,37 @@ class Card extends Component {
 
     return (
       <div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 w-full">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 w-full bg-gray-100">
           {currentItems.map((output) => (
-            <div
-              key={output.id}
-              className="relative"
-              onClick={() => this.handleCardClick(output)}
-            >
-              <DisplayCard data={output} />
+            <div key={output.id} className="relative">
+              <DisplayCard
+                data={output}
+                handleCardClick={() => this.handleCardClick(output)}
+              />
               {selectedItem === output && (
-                <div className="popup absolute top-0 left-0 mt-4 ml-4">
-                  <div className="popup-content">
-                    <button onClick={this.closePopup}>Close</button>
-                    <p>Capsule Serial: {selectedItem.capsule_serial}</p>
-                    <p>Capsule ID: {selectedItem.capsule_id}</p>
-                    <p>Original Launch: {selectedItem.original_launch}</p>
-                    <p>Status: {selectedItem.status}</p>
+                <div className="popup absolute top-0 left-0 mt-4 ml-4 font-barslow z-40">
+                  <div className="max-w-screen-sm md:max-w-screen-md">
+                    <div className="popup-content rounded-lg shadow-md bg-white p-4">
+                      <img
+                        className="close-button absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                        onClick={this.closePopup}
+                        alt="close"
+                        src={close}
+                      />
+                      <p className="text-xl font-semibold mb-2">
+                        Capsule Serial: {selectedItem.capsule_serial}
+                      </p>
+                      <p>Capsule ID: {selectedItem.capsule_id}</p>
+                      <p>Original Launch: {selectedItem.original_launch}</p>
+                      <p>Status: {selectedItem.status}</p>
+                    </div>
                   </div>
                 </div>
               )}
             </div>
           ))}
         </div>
+
         <ReactPaginate
           previousLabel={
             <span className=" p-1 text-red-400 hover:text-red-800 font-barslow text-[17px] font-semibold">
@@ -85,22 +95,27 @@ class Card extends Component {
           containerClassName={"pagination"}
           subContainerClassName={"pages pagination"}
           activeClassName={"active"}
-          className=" flex justify-center gap-4 pb-7"
+          className=" flex justify-center gap-4 pb-7 bg-gray-100"
         />
       </div>
     );
   }
 }
 
-// DisplayCard class remains the same
-function DisplayCard({ data }) {
+// DisplayCard class
+function DisplayCard({ data, handleCardClick }) {
   return (
-    <div className="w-full sm:w-1/2  md:w-3/4 lg:w-3/4 p-4 mx-auto mt-4">
-      <div className="bg-white rounded-lg shadow-md overflow-hidden">
+    <div className="w-full sm:w-1/2  md:w-3/4 lg:w-3/4 p-4 mx-auto mt-4 font-barslow  transition-transform transform hover:scale-105">
+      <div className="bg-white rounded-lg shadow-md overflow-hidden hover:bg-red-200">
         <div className="p-4">
           <p>Capsule</p>
           <p className="text-xl font-semibold mb-2">{data.capsule_serial}</p>
-          <button className="bg-red-300 p-1 rounded">View Details</button>
+          <button
+            className="bg-red-400 p-1 rounded"
+            onClick={handleCardClick} // Call handleCardClick on button click
+          >
+            View Details
+          </button>
         </div>
       </div>
     </div>
