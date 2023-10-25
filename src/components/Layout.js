@@ -1,10 +1,17 @@
 import Banner from "./Banner";
 import Search from "./Search";
 import Card from "./Card";
-import { useContext, useState } from "react";
+import { useContext, useState, useRef } from "react";
 import SpaceContext from "../API/SpaceContext";
 
 export default function Layout() {
+  const searchRef = useRef(null);
+
+  const handleExploreClick = () => {
+    if (searchRef.current) {
+      searchRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   const { rocketDetails } = useContext(SpaceContext);
 
   const [menuSelected, setMenuSelected] = useState("");
@@ -26,13 +33,15 @@ export default function Layout() {
   return (
     <div className="h-screen ">
       <div className="mx-auto max-w-screen-xl">
-        <Banner />
-        <Search
-          options={uniqueCategories}
-          data={rocketDetails}
-          handleOptionChange={handleOptionChange}
-          menuSelected={menuSelected}
-        />
+        <Banner onExploreClick={handleExploreClick} />
+        <div ref={searchRef}>
+          <Search
+            options={uniqueCategories}
+            data={rocketDetails}
+            handleOptionChange={handleOptionChange}
+            menuSelected={menuSelected}
+          />
+        </div>
         <Card filteredData={filteredData} />
       </div>
     </div>

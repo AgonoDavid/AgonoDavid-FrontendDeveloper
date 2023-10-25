@@ -1,9 +1,9 @@
 import Navbar from "./Navbar";
 
-function Banner() {
+function Banner({ onExploreClick }) {
   return (
     <header className="bg">
-      <section className="App">
+      <section className="lg:max-w-screen-lg mx-auto max-w-screen-sm pl-4 lg:pl-0 md:pl-0 md:max-w-screen-md">
         <Navbar />
         <div className="items-center pt-[10%]">
           <div className="text-white w-1/2 leading-10">
@@ -12,7 +12,10 @@ function Banner() {
             </h1>
             <p className=" font-Belleflair text-2xl">One Rocket at a Time.</p>
           </div>
-          <button className=" p-3 mt-6 transition-transform transform hover:scale-105 bg-red-500 px-3 rounded text-teal-50 font-Belleflair text-xl font-medium">
+          <button
+            onClick={onExploreClick}
+            className=" p-3 mt-6 transition-transform transform hover:scale-105 bg-red-500 px-3 rounded text-teal-50 font-Belleflair text-xl font-medium"
+          >
             Explore Catalogue
           </button>
         </div>

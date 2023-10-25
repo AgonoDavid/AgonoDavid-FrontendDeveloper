@@ -6,10 +6,10 @@ const Search = ({ options, handleOptionChange, menuSelected, data }) => {
           Filter Rocket's Catalogue
         </p>
         <div className="flex justify-center">
-          <div className="w-full md:w-1/2 lg:w-1/3">
+          <div className="w-1/2 justify-center md:w-1/2 lg:w-1/3">
             <div className="flex">
               <select
-                className="w-1/2 p-2 border border-gray-300 rounded-l-lg "
+                className="w-full p-2 border border-gray-300 "
                 value={menuSelected}
                 onChange={handleOptionChange}
               >
