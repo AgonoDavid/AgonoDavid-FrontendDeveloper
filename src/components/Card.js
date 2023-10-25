@@ -37,7 +37,7 @@ class Card extends Component {
   };
 
   render() {
-    const { selectedItem, currentPage } = this.state;
+    const { selectedItem } = this.state;
     const currentItems = this.getPaginatedItems();
 
     return (
