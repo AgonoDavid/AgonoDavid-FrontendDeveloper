@@ -7,7 +7,7 @@ function Banner({ onExploreClick }) {
         <Navbar />
         <div className="items-center pt-[10%]">
           <div className="text-white w-1/2 leading-10">
-            <h1 className="lg:text-9xl md:text-9xl text-7xl font-semibold font-barslow pb-10">
+            <h1 className="lg:text-8xl md:text-7xl text-6xl font-semibold font-barslow pb-10">
               Exploring the Cosmos
             </h1>
             <p className=" font-Belleflair text-2xl">One Rocket at a Time.</p>
