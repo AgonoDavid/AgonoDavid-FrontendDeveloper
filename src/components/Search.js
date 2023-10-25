@@ -20,30 +20,6 @@ const Search = ({ options, handleOptionChange, menuSelected, data }) => {
                   </option>
                 ))}
               </select>
-              {/* <select
-                className="w-1/2 p-2 border border-gray-300 rounded-l-lg "
-                value={menuSelected}
-                onChange={handleOptionChange}
-              >
-                <option value="">Filter by original_launch</option>
-                {options.map((option, index) => (
-                  <option key={index} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-              <select
-                className="w-1/2 p-2 border border-gray-300 rounded-l-lg "
-                value={menuSelected}
-                onChange={handleOptionChange}
-              >
-                <option value="">Filter by Type</option>
-                {options.map((option, index) => (
-                  <option key={index} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select> */}
             </div>
           </div>
         </div>

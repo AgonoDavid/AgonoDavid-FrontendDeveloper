@@ -1,92 +1,98 @@
-import { useContext, useState, useMemo } from "react";
-import SpaceContext from "../API/SpaceContext";
-import Select from "./Select";
+import React, { Component } from "react";
+import ReactPaginate from "react-paginate";
 
-function Card({ filteredData }) {
-  const { rocketDetails } = useContext(SpaceContext);
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const cardsPerPage = 10;
+// Create a Card class that extends Component
+class Card extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedItem: null,
+      currentPage: 0,
+      itemsPerPage: 10,
+    };
+  }
 
-  // Function to handle card click and set the selected item
-  const handleCardClick = (item) => {
-    setSelectedItem(item);
+  // Method to handle page change
+  handlePageChange = ({ selected }) => {
+    this.setState({ currentPage: selected });
   };
 
-  // Function to close the popup
-  const closePopup = () => {
-    console.log("i love");
-    setSelectedItem(null);
+  // Method to get paginated items
+  getPaginatedItems = () => {
+    const { currentPage, itemsPerPage } = this.state;
+    const { filteredData } = this.props;
+    const startIndex = currentPage * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return filteredData.slice(startIndex, endIndex);
   };
 
-  // Calculate the index range for the current page
-  const indexOfLastCard = currentPage * cardsPerPage;
-  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-  const currentCards = rocketDetails.slice(indexOfFirstCard, indexOfLastCard);
-
-  // Function to handle the Next page
-  const handleNextPage = () => {
-    if (currentPage < Math.ceil(rocketDetails.length / cardsPerPage)) {
-      setCurrentPage(currentPage + 1);
-    }
+  // Method to handle card click and set the selected item
+  handleCardClick = (item) => {
+    this.setState({ selectedItem: item });
   };
 
-  // Function to handle the Previous page
-  const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
+  // Method to close the popup
+  closePopup = () => {
+    this.setState({ selectedItem: null });
   };
 
-  return (
-    <div>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 w-full">
-        {filteredData.map((output) => (
-          <div
-            key={output.id}
-            className="relative"
-            onClick={() => handleCardClick(output)}
-          >
-            <DisplayCard data={output} />
-            {selectedItem === output && (
-              <div className="popup absolute top-0 left-0 mt-4 ml-4">
-                <div className="popup-content">
-                  <button onClick={closePopup}>Close</button>
-                  <p>Capsule Serial: {selectedItem.capsule_serial}</p>
-                  <p>Capsule ID: {selectedItem.capsule_id}</p>
-                  <p>Original Launch: {selectedItem.original_launch}</p>
-                  <p>Status: {selectedItem.status}</p>
+  render() {
+    const { selectedItem, currentPage } = this.state;
+    const currentItems = this.getPaginatedItems();
+
+    return (
+      <div>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 w-full">
+          {currentItems.map((output) => (
+            <div
+              key={output.id}
+              className="relative"
+              onClick={() => this.handleCardClick(output)}
+            >
+              <DisplayCard data={output} />
+              {selectedItem === output && (
+                <div className="popup absolute top-0 left-0 mt-4 ml-4">
+                  <div className="popup-content">
+                    <button onClick={this.closePopup}>Close</button>
+                    <p>Capsule Serial: {selectedItem.capsule_serial}</p>
+                    <p>Capsule ID: {selectedItem.capsule_id}</p>
+                    <p>Original Launch: {selectedItem.original_launch}</p>
+                    <p>Status: {selectedItem.status}</p>
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-      <div className="pagination mx-auto max-w-screen-sm justify-center flex items-center font-barslow gap-5 pb-3 text-white">
-        <button
-          onClick={handlePreviousPage}
-          disabled={currentPage === 1}
-          className="bg-red-400 px-3 rounded-2xl hover:bg-red-500"
-        >
-          Previous
-        </button>
-        <span className="border px-4  text-black">{currentPage}</span>
-        <button
-          className="bg-red-400 px-3 rounded-2xl hover:bg-red-500"
-          onClick={handleNextPage}
-          disabled={
-            currentPage === Math.ceil(rocketDetails.length / cardsPerPage)
+              )}
+            </div>
+          ))}
+        </div>
+        <ReactPaginate
+          previousLabel={
+            <span className=" p-1 text-red-400 hover:text-red-800 font-barslow text-[17px] font-semibold">
+              Previous
+            </span>
           }
-        >
-          Next
-        </button>
+          nextLabel={
+            <span className=" p-1 text-red-400 hover:text-red-800 font-barslow text-[17px] font-semibold">
+              Next
+            </span>
+          }
+          breakLabel={"..."}
+          pageCount={Math.ceil(
+            this.props.filteredData.length / this.state.itemsPerPage
+          )}
+          marginPagesDisplayed={1}
+          pageRangeDisplayed={5}
+          onPageChange={this.handlePageChange}
+          containerClassName={"pagination"}
+          subContainerClassName={"pages pagination"}
+          activeClassName={"active"}
+          className=" flex justify-center gap-4 pb-7"
+        />
       </div>
-    </div>
-  );
+    );
+  }
 }
 
-// DisplayCard.js (No change in this component)
-
+// DisplayCard class remains the same
 function DisplayCard({ data }) {
   return (
     <div className="w-full sm:w-1/2  md:w-3/4 lg:w-3/4 p-4 mx-auto mt-4">
